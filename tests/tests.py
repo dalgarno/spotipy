@@ -4,8 +4,6 @@ import unittest
 import pprint
 import requests
 from spotipy.client import SpotifyException
-from spotipy.oauth2 import SpotifyClientCredentials
-import os
 
 
 class TestSpotipy(unittest.TestCase):
