@@ -104,7 +104,6 @@ class Spotify(object):
 
         if payload:
             args["data"] = json.dumps(payload)
-
         if self.trace_out:
             print(url)
         r = self._session.request(method, url, headers=headers, proxies=self.proxies, **args)
@@ -337,10 +336,12 @@ class Spotify(object):
                 - q - the search query
                 - limit  - the number of items to return
                 - offset - the index of the first item to return
-                - type - the type of item to return. One of 'artist', 'album',
-                         'track' or 'playlist'
+                - type - the type of item to return. Either: 'artist', 'album',
+                         'track' or 'playlist' or a list of multiple types.
                 - market - An ISO 3166-1 alpha-2 country code or the string from_token.
         """
+        if isinstance(type, list):
+            type = ','.join(type)
         return self._get('search', q=q, limit=limit, offset=offset, type=type, market=market)
 
     def user(self, user):

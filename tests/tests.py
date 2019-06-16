@@ -4,6 +4,8 @@ import unittest
 import pprint
 import requests
 from spotipy.client import SpotifyException
+from spotipy.oauth2 import SpotifyClientCredentials
+import os
 
 
 class TestSpotipy(unittest.TestCase):
@@ -140,6 +142,13 @@ class TestSpotipy(unittest.TestCase):
         self.assertTrue('tracks' in results)
         self.assertTrue(len(results['tracks']['items']) > 0)
         self.assertTrue(results['tracks']['items'][0]['name'] == 'El Scorcho')
+
+    def test_artist_and_album_search(self):
+        results = self.spotify.search(q='weezer', type=['track', 'album'])
+        self.assertTrue('albums' in results)
+        self.assertTrue('tracks' in results)
+        self.assertTrue(len(results['tracks']['items']) > 0)
+        self.assertTrue(len(results['albums']['items']) > 0)
 
     def test_user(self):
         user = self.spotify.user(user='plamere')
